@@ -24,14 +24,15 @@ public class Writer {
         FileOutputStream fileOutputStream = new FileOutputStream(fileName);
 
         for (int i = 0; i < recordList.size(); i += blockSize) {
-            ByteBuffer byteBufferRecord = ByteBuffer.allocate(blockSize);
+            ByteBuffer byteBufferRecord = ByteBuffer.allocate(blockSize * Record.recordSize);
             List<Record> sublist = recordList.subList(i, i + blockSize);
 
             for (Record record : sublist) {
                 byteBufferRecord.put(ByteBuffer.wrap(writeRecord(record)));
             }
-            fileOutputStream.write(byteBufferRecord.remaining());
+            fileOutputStream.write(byteBufferRecord.array());
         }
+        fileOutputStream.close();
 
     }
 

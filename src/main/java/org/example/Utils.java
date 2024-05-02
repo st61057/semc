@@ -6,13 +6,14 @@ public class Utils {
 
     public static int blockCount = 1000;
     public static int blockSize = 1000;
+    public static int keyLength = 16;
 
 
     public static byte[] writeRecord(Record record) throws IOException {
         try (ByteArrayOutputStream dos = new ByteArrayOutputStream()) {
-            byte[] keyBytes = new byte[40];
+            byte[] keyBytes = new byte[keyLength];
             byte[] actualKeyBytes = record.getKey().getBytes("utf8");
-            System.arraycopy(actualKeyBytes, 0, keyBytes, 0, Math.min(actualKeyBytes.length, 40));
+            System.arraycopy(actualKeyBytes, 0, keyBytes, 0, Math.min(actualKeyBytes.length, keyLength));
             dos.write(record.getId());
             dos.write(keyBytes);
             dos.write(record.getAtt01());
@@ -30,22 +31,21 @@ public class Utils {
     }
 
     public static Record readRecord(DataInputStream dis) throws IOException {
-        byte[] dataBytes = new byte[40];
+        int id = dis.readByte();
+        byte[] dataBytes = new byte[keyLength];
         dis.readFully(dataBytes);
-
-        int id = dis.readInt();
         String key = new String(dataBytes, "utf8").trim();
 
-        int attribute1 = dis.readInt();
-        int attribute2 = dis.readInt();
-        int attribute3 = dis.readInt();
-        int attribute4 = dis.readInt();
-        int attribute5 = dis.readInt();
-        int attribute6 = dis.readInt();
-        int attribute7 = dis.readInt();
-        int attribute8 = dis.readInt();
-        int attribute9 = dis.readInt();
-        int attribute10 = dis.readInt();
+        int attribute1 = dis.readByte();
+        int attribute2 = dis.readByte();
+        int attribute3 = dis.readByte();
+        int attribute4 = dis.readByte();
+        int attribute5 = dis.readByte();
+        int attribute6 = dis.readByte();
+        int attribute7 = dis.readByte();
+        int attribute8 = dis.readByte();
+        int attribute9 = dis.readByte();
+        int attribute10 = dis.readByte();
 
         return new Record(id, key, attribute1, attribute2, attribute3, attribute4, attribute5, attribute6, attribute7, attribute8, attribute9, attribute10);
     }

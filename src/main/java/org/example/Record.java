@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Record implements Serializable {
 
-    public static final int recordSize = 44 + 16;//40 att, 4 id, 16 key
+    public static final int recordSize = 11 + 16;//11 att, 4 id, 16 key
     private int id;
     private String key;
     private int att01;
@@ -81,5 +81,21 @@ public class Record implements Serializable {
         return att10;
     }
 
-
+    @Override
+    public String toString() {
+        return "Record{" +
+                "id=" + id +
+                ", key='" + key + '\'' +
+                ", att01=" + att01 +
+                ", att02=" + att02 +
+                ", att03=" + att03 +
+                ", att04=" + att04 +
+                ", att05=" + att05 +
+                ", att06=" + att06 +
+                ", att07=" + att07 +
+                ", att08=" + att08 +
+                ", att09=" + att09 +
+                ", att10=" + att10 +
+                '}';
+    }
 }
