@@ -38,9 +38,10 @@ public class Reader {
     private ByteBuffer getActiveBuffer() {
 
         if (!isDoubleBuffering) {
+            System.out.println("first buffer active");
             return firstReadBuffer;
         }
-
+        System.out.println(isSecondActive ? "second buffer active" : "first buffer active");
         return isSecondActive ? secondReadBuffer : firstReadBuffer;
     }
 
@@ -56,6 +57,7 @@ public class Reader {
             ByteBuffer activeBuffer = getActiveBuffer();
             activeBuffer.clear();
             boolean isEOF = channel.read(activeBuffer) == -1;
+            System.out.println("Reading from active buffer");
             if (isEOF) {
                 break;
             }
@@ -75,6 +77,7 @@ public class Reader {
         if (processingTask != null) {
             while (!processingTask.isDone()) {
 //                    Vyčkává na zpracování bufferu
+//                System.out.println("Waiting to process buffer");
             }
             list.addAll((List<Record>) processingTask.get());
         }
@@ -87,6 +90,7 @@ public class Reader {
         byte[] byteArrays = byteBuffer.array();
         int count = byteArrays.length / Record.recordSize;
 
+        System.out.println("Reading byte buffer");
         DataInputStream dis = new DataInputStream(new ByteArrayInputStream(byteArrays));
         for (int i = 0; i < count; i++) {
             recordList.add(readRecord(dis));
