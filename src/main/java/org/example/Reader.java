@@ -47,7 +47,7 @@ public class Reader {
 
     public List<Record> readAll() throws IOException, ExecutionException, InterruptedException {
         List<Record> list = new ArrayList<>();
-        ExecutorService executorService = Executors.newFixedThreadPool(2); // Two threads for double buffering
+        ExecutorService executorService = Executors.newFixedThreadPool(2); // double buffer
 
         File file = new File(fileName);
         FileInputStream fis = new FileInputStream(file);
@@ -77,7 +77,7 @@ public class Reader {
         if (processingTask != null) {
             while (!processingTask.isDone()) {
 //                    Vyčkává na zpracování bufferu
-//                System.out.println("Waiting to process buffer");
+                System.out.println("Waiting to process buffer");
             }
             list.addAll((List<Record>) processingTask.get());
         }
@@ -95,6 +95,7 @@ public class Reader {
         for (int i = 0; i < count; i++) {
             recordList.add(readRecord(dis));
         }
+        System.out.println(recordList);
 
         return recordList;
     }

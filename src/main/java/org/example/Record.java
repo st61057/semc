@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Record implements Serializable {
 
-    public static final int recordSize = 11 + 16;//11 att, 4 id, 16 key
+    public static final int recordSize = 11 + 16;//10 att, 1 id, 16 key
     private int id;
     private String key;
     private int att01;

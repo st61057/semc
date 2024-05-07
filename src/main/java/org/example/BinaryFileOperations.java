@@ -20,7 +20,7 @@ public class BinaryFileOperations {
         List<Record> recordList = new ArrayList<>();
         for (int i = 0; i < blockCount; i++) {
             for (int j = 0; j < blockSize; j++) {
-                Record record = new Record(/*blockSize * i +*/ j, editingKey("key" + j), j, j, j, j, j, j, j, j, j, j);
+                Record record = new Record(blockSize * i + j, editingKey("key" + j), j, j, j, j, j, j, j, j, j, j);
                 recordList.add(record);
             }
         }
